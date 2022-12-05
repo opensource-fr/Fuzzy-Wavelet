@@ -19,10 +19,12 @@ module opensource_fr_fuzzy_wavelet #(
 
     // output rewiring
     wire [7:0] o_multiplexed_wavelet_out;
-    assign io_out[7: 0] = {o_multiplexed_wavelet_out[7:0];
+    assign io_out[7:0] = o_multiplexed_wavelet_out[7:0];
 
     // chip active gpio signal
-    output wire o_active
+    wire o_active;
+
+    assign io_out[8] = o_active;
     //}}}
 
   // Parameter maths outside of generator {{{
