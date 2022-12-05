@@ -1,11 +1,15 @@
---- 
+---
 # TinyTapeout project information
 project:
   wokwi_id:    0        # If using wokwi, set this to your project's ID
   source_files:        # If using an HDL, set wokwi_id as 0 and uncomment and list your source files here. Source files must be in ./src
-    - counter.v
-    - decoder.v
-  top_module:  "seven_segment_seconds"      # put the name of your top module here, make it unique by prepending your github username
+    - opensource_fr_fuzzy_wavelet.v
+    - shift_register_line.v
+    - rolling_sum.v
+    - srl_rolling_avg.v
+    - fir.v
+    - output_multiplexer.v
+  top_module:  "opensource_fr_fuzzy_wavelet"      # put the name of your top module here, make it unique by prepending your github username
 
 # As everyone will have access to all designs, try to make it easy for someone new to your design to know what
 # it does and how to operate it.
@@ -13,13 +17,13 @@ project:
 # Here is an example: https://github.com/mattvenn/tinytapeout_m_segments/blob/main/info.yaml
 #
 # This info will be automatically collected and used to make a datasheet for the chip.
-documentation: 
-  author:       "Matt Venn"      # Your name
-  discord:      "mattvenn#1907"      # Your discord handle
-  title:        "7 segment seconds"      # Project title
-  description:  "count up to 10, one second at a time"      # Short description of what your project does
-  how_it_works: "uses a register and some combinational logic"      # Longer description of how the project works
-  how_to_test:  "after reset, the counter should increase by one every second"      # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
+documentation:
+  author:       "FoodRev Opensource Team"      # Your name
+  discord:      "seitansai#0106"      # Your discord handle
+  title:        "Fuzzy Wavelet"      # Project title
+  description:  "An open source 'fuzzy' wavelet implementation"      # Short description of what your project does
+  how_it_works: "Feeds the wavelet taps via moving averages in pipelined manner to reduce scaling costs, does a few math tricks to reduce module complexity"      # Longer description of how the project works
+  how_to_test:  "8-bit time series data 0-255 (0 maps to -128, 127 maps to -1,  128 maps to 0, 255 maps to 127), and watch the amplitude and phase from any single bank"      # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   external_hw:  ""      # Describe any external hardware needed
   language:     "verilog" # other examples include Verilog, Amaranth, VHDL, etc
   doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
@@ -27,20 +31,32 @@ documentation:
   picture:      ""      # relative path to a picture in your repository
   inputs:               # a description of what the inputs do
     - clock
-    - reset
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - rst
+    - i_data_clk
+    - i_value[0]
+    - i_value[1]
+    - i_value[2]
+    - i_value[3]
+    - i_value[4]
+    - i_value[5]
+    - i_value[6]
+    - i_value[7]
+    - i_select[0]
+    - i_select[1]
+    - i_select[2]
+    - i_select[3]
+    - i_select[4]
+    - i_select[5]
+    - i_select[6]
+    - i_select[7]
   outputs:
-    - segment a         # a description of what the outputs do
-    - segment b
-    - segment c
-    - segment d
-    - segment e
-    - segment f
-    - segment g
-    - none
+    - o_wavelet[0]
+    - o_wavelet[1]
+    - o_wavelet[2]
+    - o_wavelet[3]
+    - o_wavelet[4]
+    - o_wavelet[5]
+    - o_wavelet[6]
+    - o_wavelet[7]
+    - o_active
 

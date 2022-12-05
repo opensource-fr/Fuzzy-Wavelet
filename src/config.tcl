@@ -29,7 +29,7 @@ set ::env(BOTTOM_MARGIN_MULT) 2
 
 # absolute die size
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 150 170"
+set ::env(DIE_AREA) "0 0 600 600"
 set ::env(FP_CORE_UTIL) 55
 
 # comment this if your design has more than a few hundred cells

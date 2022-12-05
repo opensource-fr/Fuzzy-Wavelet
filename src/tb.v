@@ -10,7 +10,11 @@ module tb (
     // testbench is controlled by test.py
     input clk,
     input rst,
-    output [6:0] segments
+    input i_data_clk,
+    input [7:0] i_value,
+    input [7:0] i_select,
+    output [7:0] fw_out,
+    output o_active
    );
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
@@ -21,12 +25,13 @@ module tb (
     end
 
     // wire up the inputs and outputs
-    wire [7:0] inputs = {6'b0, rst, clk};
-    wire [7:0] outputs;
-    assign segments = outputs[6:0];
+    wire [18:0] inputs = {i_select[7:0],i_value[7:0],i_data_clk, rst, clk};
+    wire [8:0] outputs;
+    assign fw_out[7:0] = outputs[7:0];
+    assign o_active = outputs[8];
 
     // instantiate the DUT
-    seven_segment_seconds #(.MAX_COUNT(100)) seven_segment_seconds(
+    opensource_fr_fuzzy_wavelet osfr_fw (
         .io_in  (inputs),
         .io_out (outputs)
         );
